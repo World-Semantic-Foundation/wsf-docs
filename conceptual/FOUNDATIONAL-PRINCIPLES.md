@@ -34,7 +34,7 @@ Silent redefinition is architecturally prohibited.
 
 **Semantic changes are governed through the lifecycle.**
 
-Semantic evolution records the change to meaning, identity, constraints, relationships, scope, or authority. The architecture distinguishes semantic change, representation change, and repository change — these are not equivalent.
+Semantic evolution records the change to meaning, identity, constraints, relationships, scope, or authority. The architecture distinguishes semantic change, representation change, and repository change ; these are not equivalent.
 
 Every semantic change moves through the 8-stage Change Control Lifecycle with explicit governance.
 

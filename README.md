@@ -24,11 +24,11 @@ wsf-docs/
 
 For architects, decision-makers, and those new to WSF:
 
-- **FOUNDATIONAL-PRINCIPLES.md** — The 12 Foundational Principles
-- **WSF-OVERVIEW.md** — What WSF is, why it exists (to be added)
-- **SEMANTIC-MODEL.md** — The 3-Foundation WSF model (to be added)
-- **EXAMPLE-CONVENTION.md** — OTCHERE/Kwesi canonical example (to be added)
-- **DISTINCTIONS.md** — 12 epistemic distinctions (to be added)
+- **FOUNDATIONAL-PRINCIPLES.md** : The 12 Foundational Principles
+- **WSF-OVERVIEW.md** : What WSF is, why it exists (to be added)
+- **SEMANTIC-MODEL.md** : The 3-Foundation WSF model (to be added)
+- **EXAMPLE-CONVENTION.md** : OTCHERE/Kwesi canonical example (to be added)
+- **DISTINCTIONS.md** : 12 epistemic distinctions (to be added)
 
 ---
 
@@ -36,10 +36,10 @@ For architects, decision-makers, and those new to WSF:
 
 For developers and integrators:
 
-- **WSF-API-GUIDE.md** (to be added — after Engine implementation)
+- **WSF-API-GUIDE.md** (to be added : after Engine implementation)
 - **INTEGRATION-GUIDE.md** (to be added)
-- **NAMESPACE-GUIDE.md** (to be added — after ADR-WSF-21)
-- **IDENTITY-GUIDE.md** (to be added — after ADR-WSF-18)
+- **NAMESPACE-GUIDE.md** (to be added : after ADR-WSF-21)
+- **IDENTITY-GUIDE.md** (to be added : after ADR-WSF-18)
 
 ---
 
@@ -58,7 +58,7 @@ Step-by-step learning resources:
 
 How to claim WSF conformance:
 
-- **CONFORMANCE-OVERVIEW.md** (to be added — after ADR)
+- **CONFORMANCE-OVERVIEW.md** (to be added : after ADR)
 - **SEMANTIC-CONFORMANCE.md** (to be added)
 - **IDENTITY-CONFORMANCE.md** (to be added)
 - **REFERENCE-CONFORMANCE.md** (to be added)
@@ -66,7 +66,7 @@ How to claim WSF conformance:
 - **ASSERTION-CONFORMANCE.md** (to be added)
 - **PROVENANCE-CONFORMANCE.md** (to be added)
 - **SPECIALIZATION-CONFORMANCE.md** (to be added)
-- **API-CONFORMANCE.md** (to be added — after Engine)
+- **API-CONFORMANCE.md** (to be added : after Engine)
 - **SERIALIZATION-CONFORMANCE.md** (to be added)
 
 ---
@@ -99,9 +99,9 @@ All examples in WSF docs use:
 
 Per CR-WSF-17 Rev.1 §6, documentation shall distinguish:
 
-- **Investigation Finding** — Research observation
-- **Architectural Decision** — Formal ADR position
-- **Implementation** — Executed work
+- **Investigation Finding** : Research observation
+- **Architectural Decision** : Formal ADR position
+- **Implementation** : Executed work
 
 These categories shall NOT be conflated in documentation.
 
@@ -117,10 +117,10 @@ The **FOUNDATIONAL-PRINCIPLES.md** document has been completed as the foundation
 
 ## Related Repositories
 
-- [wsf/](../wsf/) — Canonical semantic assets
-- [wsf-spec/](../wsf-spec/) — Normative specifications
-- [wsf-governance/](../wsf-governance/) — ADRs, CRs, investigation record
-- [wsf-examples/](../wsf-examples/) — Reference applications
+- [wsf/](../wsf/) : Canonical semantic assets
+- [wsf-spec/](../wsf-spec/) : Normative specifications
+- [wsf-governance/](../wsf-governance/) : ADRs, CRs, investigation record
+- [wsf-examples/](../wsf-examples/) : Reference applications
 
 ---
 
