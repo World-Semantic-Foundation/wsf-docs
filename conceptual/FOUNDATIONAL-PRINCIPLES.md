@@ -1,253 +1,141 @@
 # 12 Foundational Principles of WSF
 
-> **The governing principles that shape every decision in the World Semantic Foundation.**
+> **The governing principles that shape every architectural decision in the World Semantic Foundation.**
 
-These principles are established by CR-WSF-17 Rev.1 §7 and reflect the investigation record preserved in the governance repository. They are **immutable governance principles** — any change requires an explicit ADR.
-
----
-
-## Principle 1 — Semantic Primacy
-
-> **Foundational semantics precede domain specialization.**
-
-Meaning exists before representation. Domain specialization must inherit and constrain foundational semantics, not redefine them.
-
-```
-Meaning (foundational)
-   ↓
-Representation (domain-specific)
-   ↓
-Execution (implementation)
-```
-
-**Implications**:
-- WSF establishes the meaning; downstream systems adapt the representation
-- Specialized semantics must trace to foundational meaning
-- Foundational changes propagate explicitly, not silently
+These principles establish the design specification for WSF. They are reflected throughout the architectural decision records, the concept definitions, the implementation specifications, and the governance model.
 
 ---
 
-## Principle 2 — Minimal Foundation
+## 1. Semantic Primacy
 
-> **WSF shall seek the smallest sufficient foundational semantic vocabulary.**
+**Meaning precedes representation.**
 
-WSF should NOT attempt to model every possible domain concept. It should establish the minimum authoritative semantic primitives necessary to support coherent semantic specialization.
+The semantic commitment is the authoritative statement. Representations (RDF, OWL, JSON-LD, YAML, database schemas) implement the semantic commitment; they do not define it.
 
-**Implications**:
-- 12 foundational candidates (Tier 1) + 9 supporting constructs (Tier 2) + 16+ derived (Tier 3)
-- "Popularity does not establish foundational status"
-- "Minimal but sufficient" — neither too narrow nor too broad
+A change in representation does not constitute a change in semantics. The semantic identity persists across representation transformations.
 
----
+## 2. Minimal Foundation
 
-## Principle 3 — Explicit Specialization
+**The architecture provides the smallest sufficiently expressive foundation.**
 
-> **Specialized semantic systems shall specialize foundational concepts rather than silently redefine them.**
+WSF does not define every domain concept. It establishes a minimal set of semantic primitives from which all domain semantics can be derived through composition and specialization.
 
-```
-WSF Capability
-   ↓ specializes
-OpenDEA Business Capability
-```
+Concepts are admitted to the foundation only when their semantics cannot be adequately derived from other WSF primitives without loss of meaning.
 
-**Implications**:
-- WSF Capability means one thing across all contexts
-- OpenDEA Business Capability is a CONTEXTUAL specialization
-- The specialization MUST preserve the inherited meaning
-- Silent redefinition = semantic violation
+## 3. Explicit Specialization
 
----
+**Domain and enterprise concepts specialize; they do not silently redefine foundational concepts.**
 
-## Principle 4 — Identity Separation
+Specialization is the only path from foundational concepts to specialized ones. Specializations identify their parent concept, preserve inherited meaning, declare added semantics, declare constraints, and remain semantically conformant.
 
-> **Identity, Identifier, Name, Reference, and Representation shall remain conceptually distinct.**
+Silent redefinition is architecturally prohibited.
 
-| Concept | Purpose |
-|---|---|
-| **Identity** | Stable persistent identifier for the semantic artifact |
-| **Identifier** | Concrete representation of identity (URI, UUID, etc.) |
-| **Name** | Human-readable label |
-| **Reference** | Pointer that requires resolution |
-| **Representation** | Encoding/serialization of the artifact |
+## 4. Versioned Evolution
 
-**Implications**:
-- URI ≠ Identity (URI is one type of identifier)
-- Name ≠ Identifier (names can collide, change)
-- Same name does NOT mean same concept
-- Different names does NOT mean different concept
+**Semantic changes are governed through the lifecycle.**
 
----
+Semantic evolution records the change to meaning, identity, constraints, relationships, scope, or authority. The architecture distinguishes semantic change, representation change, and repository change — these are not equivalent.
 
-## Principle 5 — Contextual Semantics
+Every semantic change moves through the 8-stage Change Control Lifecycle with explicit governance.
 
-> **Meaning and applicability may depend upon context.**
+## 5. Authoritative Provenance
 
-```
-Capability
-   + Business Context → Business Capability
-   + Operational Context → Operational Capability
-   + Technical Context → Technical Capability
-```
+**Sources are tracked for every semantic artifact.**
 
-**Implications**:
-- Context qualifies interpretation, not replaces it
-- Contextual Assertion ≠ Contextual Concept
-- A concept can be universal while its application is contextual
+Every concept, assertion, and decision carries provenance metadata: source, asserted-by, authority, asserted-at, method, derivation chain.
 
----
+Provenance provides the basis for trust evaluation and is preserved through versioning.
 
-## Principle 6 — Assertion Separation
+## 6. Governance First
 
-> **A Proposition shall remain distinguishable from an Assertion of that Proposition.**
+**Architecture precedes implementation.**
 
-```
-Proposition:  Capability enables Function    (about the model)
-Assertion:    OTCHERE Inc possesses Capability X    (about reality)
-```
+No implementation proceeds without an explicitly authorized architectural decision (ADR) and change request (CR). The architectural baseline is established before implementation work begins.
 
-**Implications**:
-- WSF needs to distinguish Foundational Semantic Assertion from Domain/Enterprise Assertion
-- Validation ≠ Truth
-- An assertion can be valid structurally but false semantically
+The architecture is the source of truth; implementation is its expression.
 
----
+## 7. Layered Realization
 
-## Principle 7 — Provenance
+**Multiple levels, distinct concerns.**
 
-> **Authoritative semantic claims shall be traceable to their provenance.**
+The architecture is organized in layers:
 
-```
-Assertion
-   │
-   ├── Source
-   ├── Agent
-   ├── Activity
-   ├── Time
-   ├── Method
-   └── Derivation
-```
+- Foundational semantics (Tier 1)
+- Domain concepts (Tier 2)
+- Specialized concepts (Tier 3)
+- Contextual specializations
+- Assertions
+- Evidence and provenance
+- Formal representations
 
-**Implications**:
-- Every authoritative claim must have provenance
-- Provenance must be retained even when artifacts change
-- Provenance ≠ Evidence (they are distinct)
+Each layer has distinct responsibilities. The architecture does not collapse layers into a single abstraction.
 
----
+## 8. Traceable Rationale
 
-## Principle 8 — Temporal Integrity
+**Decisions document their reasoning.**
 
-> **Truth, validity, currency, applicability, and lifecycle status shall not be conflated.**
+Every architectural decision record captures the context, drivers, considered alternatives, and rationale. Every change request documents the scope and justification.
 
-```
-Truth        → Does the proposition correspond to reality?
-Validity     → Does the assertion apply under specified conditions?
-Currency     → Is the assertion currently in effect?
-Applicability → Does the assertion apply in this scope?
-Lifecycle    → What is the governance status?
-```
+The reasoning is the foundation for future evolution. Decisions are reviewable.
 
-**Implications**:
-- An assertion can be historically true but currently invalid
-- Lifecycle status belongs to governance, not to Truth
-- WSF must distinguish Temporal Semantic Validity from Lifecycle Status
+## 9. Constrained Extensibility
+
+**Extensions follow the governance model.**
+
+Extensions to the foundation are allowed but follow the same governance discipline as foundational concepts: investigation, decision, and implementation.
+
+Uncontrolled extension is architecturally prohibited; controlled extension is enabled.
+
+## 10. Verifiable Conformance
+
+**Claims are demonstrable.**
+
+A specialization demonstrates conformance to its parent. An assertion demonstrates validity against its semantic context. A semantic artifact demonstrates alignment with its specification.
+
+Conformance is a verifiable property, not an asserted one.
+
+## 11. Identity by Meaning
+
+**Identity persists through compatible evolution.**
+
+A semantic artifact is identified by its meaning, not its name, label, representation, or location. Identity persists through representation changes, context changes, version evolution, and naming changes.
+
+Identity and version are distinct concepts. A new identity is required only when the meaning itself has materially changed.
+
+## 12. Investigation-Driven
+
+**Architectural decisions follow research.**
+
+Every architectural decision traces back to documented investigation. The investigation record is preserved as the research lineage of the foundation.
+
+Architectural decisions are evidence-based.
 
 ---
 
-## Principle 9 — Relationship First-Classness
+## Application
 
-> **Relationships shall be representable as first-class semantic constructs.**
+These 12 principles apply to:
 
-Relationships are not merely implementation connectors. They carry semantic meaning.
+- Every architectural decision record
+- Every concept definition
+- Every implementation choice
+- Every governance action
+- Every cross-system integration
+- Every evolution of the foundation
 
-**4 Forms of Relation**:
-- **Structural** — Entity related-to Entity
-- **Temporal** — Event A precedes Event B
-- **Causal** — Event A causes Event B
-- **Dispositional** — Capability enables Activity
-
-**Implications**:
-- Relationships have identity
-- Relationships can have properties (relationship reification)
-- Domain-specific relationships specialize the general mechanism
+The principles are the specification. They are not aspirational; they are architectural constraints.
 
 ---
 
-## Principle 10 — Lifecycle Independence
+## Cross-Reference
 
-> **Downstream semantic systems shall retain their own governance and lifecycle.**
+The principles are realized through:
 
-```
-WSF ≠ OpenDEA ≠ Assessment-Models
-```
-
-**Implications**:
-- WSF does NOT become the governance home for OpenDEA
-- WSF does NOT become the assessment governance authority
-- Each system has its own ADRs, CRs, and versioning
-- Interaction through governed semantic interfaces, not absorption
+- **ADRs**: Each ADR cites the principles it implements.
+- **Concept definitions**: Each concept specifies which principles it embodies.
+- **Implementation CRs**: Each CR demonstrates adherence to applicable principles.
+- **Governance documents**: The lifecycle and status models implement the principles.
 
 ---
 
-## Principle 11 — Evidence-Based Evolution
-
-> **Foundational semantic changes require explicit investigation and recorded rationale.**
-
-```
-Investigation
-   ↓
-Finding
-   ↓
-Synthesis
-   ↓
-ADR
-   ↓
-CR
-   ↓
-Implementation
-   ↓
-Validation
-   ↓
-Release
-```
-
-**Implications**:
-- No implementation is interpreted as automatically creating a normative semantic decision
-- Changes must be traceable to investigations
-- Investigation record is preserved as a first-class asset
-
----
-
-## Principle 12 — Open Specialization
-
-> **WSF shall enable specialization without attempting to own every domain ontology.**
-
-WSF provides the semantic space from which specialized concepts can be rigorously derived. WSF does NOT need to know every specialized form.
-
-**Implications**:
-- Domain ontologies extend WSF, not the reverse
-- Specialization is encouraged
-- WSF stays minimal and focused
-- Downstream systems retain autonomy
-
----
-
-## Summary Table
-
-| # | Principle | Key Phrase |
-|---|---|---|
-| 1 | Semantic Primacy | Meaning precedes representation |
-| 2 | Minimal Foundation | Smallest sufficient vocabulary |
-| 3 | Explicit Specialization | Specialize, don't redefine |
-| 4 | Identity Separation | Identity ≠ Identifier ≠ Name ≠ Reference ≠ Representation |
-| 5 | Contextual Semantics | Meaning may depend on context |
-| 6 | Assertion Separation | Proposition ≠ Assertion |
-| 7 | Provenance | Authoritative claims traceable |
-| 8 | Temporal Integrity | Truth ≠ Validity ≠ Currency ≠ Lifecycle |
-| 9 | Relationship First-Classness | Relationships are semantic constructs |
-| 10 | Lifecycle Independence | WSF ≠ OpenDEA ≠ Assessment-Models |
-| 11 | Evidence-Based Evolution | Investigation → ADR → CR → Implementation |
-| 12 | Open Specialization | Enable, don't own |
-
----
-
-*These 12 principles are the governance foundation of WSF. Any deviation must be explicitly justified through the ADR process documented in `wsf-governance/`.*
+*These principles are the architectural specification of the World Semantic Foundation.*
