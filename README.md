@@ -125,3 +125,16 @@ The **FOUNDATIONAL-PRINCIPLES.md** document has been completed as the foundation
 ---
 
 *Documentation makes WSF accessible. New documentation requires explicit decision through the ADR process.*
+
+
+---
+
+## Concept Reference Site
+
+`scripts/build-site.py` generates a static concept reference site (one page per concept in `wsf/concepts/`, plus tutorials and the foundational principles) into `_site/`. The [Site workflow](./.github/workflows/site.yml) builds it on every push and PR (sibling checkout of `wsf` required) and publishes it to GitHub Pages from `main`.
+
+Run locally with the `wsf` repository checked out as a sibling:
+
+```bash
+python3 scripts/build-site.py
+```
