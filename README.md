@@ -129,11 +129,22 @@ The **FOUNDATIONAL-PRINCIPLES.md** document has been completed as the foundation
 
 ---
 
+---
+
 ## Concept Reference Site
 
-`scripts/build-site.py` generates a static concept reference site (one page per concept in `wsf/concepts/`, plus tutorials and the foundational principles) into `_site/`. The [Site workflow](./.github/workflows/site.yml) builds it on every push and PR (sibling checkout of `wsf` required) and publishes it to GitHub Pages from `main`.
+`scripts/build-site.py` generates the WSF public reference site into `_site/`, designed for four audiences:
 
-Run locally with the `wsf` repository checked out as a sibling:
+- **People**: landing page, plain-language definitions, canonical examples, concept search
+- **AI agents**: `llms.txt`, `llms-full.txt`, `data/concepts.json`, `data/relationships.json`, `data/context.jsonld`, JSON-LD structured data on every page, `robots.txt`, `sitemap.xml`
+- **Ontologists**: per-concept metadata, parent/child hierarchy, tier badges, relationship registry, taxonomy tree
+- **Engineers**: engine quickstart, spec table, ecosystem map, copyable curl/JSON-LD snippets
+
+Output: 8 section pages + 38 concept pages (46 total), plus machine-readable data artifacts. Modern corporate design system (deep navy / teal, adaptive dark mode, responsive nav, tabs, client-side search and tier filtering) with zero external dependencies.
+
+The [Site workflow](./.github/workflows/site.yml) builds, validates, and deploys it to GitHub Pages from `main` (sibling checkouts of `wsf` and `wsf-spec` required).
+
+Run locally with the sibling repositories checked out side by side:
 
 ```bash
 python3 scripts/build-site.py
