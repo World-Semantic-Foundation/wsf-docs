@@ -23,9 +23,37 @@ jobs:
           repository: World-Semantic-Foundation/wsf
           path: wsf
 
+      - uses: actions/checkout@v4
+        with:
+          repository: World-Semantic-Foundation/wsf-spec
+          path: wsf-spec
+
       - name: Build site
         working-directory: wsf-docs
         run: python3 scripts/build-site.py
+
+      - name: Validate site output
+        working-directory: wsf-docs
+        run: |
+          python3 - <<'EOF'
+          import glob, json, os, re, sys
+          os.chdir("_site")
+          for f in ["data/concepts.json", "data/relationships.json", "data/context.jsonld"]:
+              json.load(open(f))
+          pages = glob.glob("*.html")
+          assert len(pages) >= 46, f"expected >=46 pages, got {len(pages)}"
+          bad = []
+          for f in pages:
+              s = open(f).read()
+              for m in re.finditer(r'href="([^"#][^":]*?)(?:#[^"]*)?"', s):
+                  t = m.group(1)
+                  if t.startswith(("http", "data:")): continue
+                  if not os.path.exists(t): bad.append(f + " -> " + t)
+              if "{{" in s: bad.append(f + " (leftover braces)")
+          if bad:
+              print("\n".join(bad)); sys.exit(1)
+          print(f"site validation OK: {len(pages)} pages, all local links resolve, data JSON valid")
+          EOF
 
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
